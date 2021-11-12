@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react';
 import './App.css';
 import Currency from './Currency';
 
+//const BASE_URL = "https://xch-api.herokuapp.com"
 
 const BASE_URL = "https://xch-api.herokuapp.com/rates"
 
@@ -10,34 +11,31 @@ function App() {
   const [fromCurrency, setFromCurrency] = useState()
   const [toCurrency, setToCurrency] = useState()
   const [exchangeRate, setExchangeRate] = useState()
-  const [amounts, setAmount] = useState()
+  const [amount, setAmount] = useState()
   const [amountInfromCurrenncy, setAmountInFromCurrency ] = useState(true)
 
-// for exchanging the values.
 
   let toAmount, fromAmount
   if (amountInfromCurrenncy){
-    fromAmount = amounts
-    toAmount = amounts * exchangeRate
+    fromAmount = amount
+    toAmount = amount * exchangeRate
   } else {
-    toAmount = amounts
-    fromAmount = amounts / exchangeRate
+    toAmount = amount
+    fromAmount = amount / exchangeRate
   }
 
-
-
-
-  // second use effect, which have all the rate for calculations
   useEffect(()=> {
     fetch(BASE_URL)
     .then(res => res.json())
     .then(data => {
       const firstCurrency = Object.keys(data.rates)[0]
+      const secondCurrency = Object.keys(data.rates)[1]
       setCurrencyOptions([data.base, ...Object.keys(data.rates)])
       setFromCurrency(data.base)
       setToCurrency(firstCurrency)
+      setToCurrency(secondCurrency)
       setExchangeRate(data.rates[firstCurrency])
-     
+      setExchangeRate(data.rates[secondCurrency])
     })
   }, [])
 
@@ -53,26 +51,23 @@ function App() {
  return(
   <>
    <h1> Calculator </h1>
-   <div className="container">
-    <Currency 
+    <Currency
     currencyOptions={currencyOptions}
-    selectedCurrencys={fromCurrency}
+    selectedCurrency={fromCurrency}
     onChangeCurrency = {e => setFromCurrency(e.target.value) }
     onChangeAmount = {handleFromAmountChange}
-    amounts={fromAmount}
+    amount={fromAmount}
     />
-    <div className="equals"> = </div>
-   
-    <Currency 
+    <div className="equals">=</div>
+    <Currency
     currencyOptions={currencyOptions}
-    selectedCurrencys={toCurrency}
+    selectedCurrency={toCurrency}
     onChangeCurrency = {e => setToCurrency(e.target.value) }
     onChangeAmount = {handleToAmountChange}
-    amounts={toAmount}
+    amount={toAmount}
     />
-      </div>
+    
   </>
-
 );
  }
  export default App;
