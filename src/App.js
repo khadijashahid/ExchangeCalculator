@@ -3,40 +3,33 @@ import './App.css';
 import Currency from './Currency';
 
 
-const BASE_URL = "https://xch-api.herokuapp.com"
+const BASE_URL = "https://xch-api.herokuapp.com/rates"
 
 function App() {
   const [currencyOptions, setCurrencyOptions] = useState([])
   const [fromCurrency, setFromCurrency] = useState()
   const [toCurrency, setToCurrency] = useState()
   const [exchangeRate, setExchangeRate] = useState()
-  const [amount, setAmount] = useState()
+  const [amounts, setAmount] = useState()
   const [amountInfromCurrenncy, setAmountInFromCurrency ] = useState(true)
 
 // for exchanging the values.
 
   let toAmount, fromAmount
   if (amountInfromCurrenncy){
-    fromAmount = amount
-    toAmount = amount * exchangeRate
+    fromAmount = amounts
+    toAmount = amounts * exchangeRate
   } else {
-    toAmount = amount
-    fromAmount = amount / exchangeRate
+    toAmount = amounts
+    fromAmount = amounts / exchangeRate
   }
 
-  // first use effect, which includes the 4 values from API in console.
-  useEffect(()=>{
-    fetch(BASE_URL)
-      .then(response => response.json())
-      .then(data => {
-        console.log("response", data)
-      })
-  }, [])
+
 
 
   // second use effect, which have all the rate for calculations
   useEffect(()=> {
-    fetch("https://xch-api.herokuapp.com/rates")
+    fetch(BASE_URL)
     .then(res => res.json())
     .then(data => {
       const firstCurrency = Object.keys(data.rates)[0]
@@ -63,19 +56,19 @@ function App() {
    <div className="container">
     <Currency 
     currencyOptions={currencyOptions}
-    selectedCurrency={fromCurrency}
+    selectedCurrencys={fromCurrency}
     onChangeCurrency = {e => setFromCurrency(e.target.value) }
     onChangeAmount = {handleFromAmountChange}
-    amount={fromAmount}
+    amounts={fromAmount}
     />
     <div className="equals"> = </div>
    
     <Currency 
     currencyOptions={currencyOptions}
-    selectedCurrency={toCurrency}
+    selectedCurrencys={toCurrency}
     onChangeCurrency = {e => setToCurrency(e.target.value) }
     onChangeAmount = {handleToAmountChange}
-    amount={toAmount}
+    amounts={toAmount}
     />
       </div>
   </>
