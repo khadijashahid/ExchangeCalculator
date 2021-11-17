@@ -1,5 +1,7 @@
 import React,{useEffect, useState} from 'react';
+
 import './App.css';
+
 import Currency from './Currency';
 
 //const BASE_URL = "https://xch-api.herokuapp.com"
@@ -8,10 +10,13 @@ const BASE_URL = "https://xch-api.herokuapp.com/rates"
 
 function App() {
   const [currencyOptions, setCurrencyOptions] = useState([])
+
   const [fromCurrency, setFromCurrency] = useState()
   const [toCurrency, setToCurrency] = useState()
+
   const [exchangeRate, setExchangeRate] = useState()
   const [amount, setAmount] = useState()
+
   const [amountInfromCurrenncy, setAmountInFromCurrency ] = useState(true)
 
 
@@ -20,9 +25,11 @@ function App() {
     fromAmount = amount
     toAmount = amount * exchangeRate
   } else {
+
     toAmount = amount
     fromAmount = amount / exchangeRate
   }
+  
 
   useEffect(()=> {
     fetch(BASE_URL)
@@ -33,7 +40,7 @@ function App() {
       setCurrencyOptions([data.base, ...Object.keys(data.rates)])
       setFromCurrency(data.base)
       setToCurrency(firstCurrency)
-      setToCurrency(secondCurrency)
+      setFromCurrency(secondCurrency)
       setExchangeRate(data.rates[firstCurrency])
       setExchangeRate(data.rates[secondCurrency])
     })
@@ -50,7 +57,10 @@ function App() {
 
  return(
   <>
-   <h1> Calculator </h1>
+  <div className="wrapper">
+    <div className="container">
+   <header> Calculator </header>
+  
     <Currency
     currencyOptions={currencyOptions}
     selectedCurrency={fromCurrency}
@@ -58,14 +68,8 @@ function App() {
     onChangeAmount = {handleFromAmountChange}
     amount={fromAmount}
     />
-    <div className="equals">=</div>
-    <Currency
-    currencyOptions={currencyOptions}
-    selectedCurrency={toCurrency}
-    onChangeCurrency = {e => setToCurrency(e.target.value) }
-    onChangeAmount = {handleToAmountChange}
-    amount={toAmount}
-    />
+    </div>
+    </div>
     
   </>
 );
