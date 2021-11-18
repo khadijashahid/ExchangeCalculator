@@ -26,12 +26,19 @@ export default function Currency(props) {
     return (
         <div className="row">
             <div className="col-md-6">
+            {
+                    console.log("currencyName", currencyName.crypto)
+                }
+                {
+                    console.log("currencyName", currencyName)
+                }
          
                  <input type="number" className="inp1" value={amount}  />
             <select className="sel1" value={selectedCurrency} onChange={onChangeCurrency} >
                 {
                currencyOptions.map(currencies => (
                             <option key={currencies} value={currencies}>
+                               
                                 {currencies}
                             </option>
                 )

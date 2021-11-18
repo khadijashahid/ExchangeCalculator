@@ -10,13 +10,10 @@ const BASE_URL = "https://xch-api.herokuapp.com/rates"
 
 function App() {
   const [currencyOptions, setCurrencyOptions] = useState([])
-
   const [fromCurrency, setFromCurrency] = useState()
   const [toCurrency, setToCurrency] = useState()
-
   const [exchangeRate, setExchangeRate] = useState()
   const [amount, setAmount] = useState()
-
   const [amountInfromCurrenncy, setAmountInFromCurrency ] = useState(true)
 
 
