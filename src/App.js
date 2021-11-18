@@ -59,7 +59,7 @@ function App() {
   <>
   <div className="wrapper">
     <div className="container">
-   <header> Calculator </header>
+   <header className="header"> Calculator </header>
   
     <Currency
     currencyOptions={currencyOptions}
@@ -75,5 +75,3 @@ function App() {
 );
  }
  export default App;
-
-

@@ -27,8 +27,8 @@ export default function Currency(props) {
         <div className="row">
             <div className="col-md-6">
          
-                 <input type="number" className="input" value={amount}  />
-            <select value={selectedCurrency} onChange={onChangeCurrency} >
+                 <input type="number" className="inp1" value={amount}  />
+            <select className="sel1" value={selectedCurrency} onChange={onChangeCurrency} >
                 {
                currencyOptions.map(currencies => (
                             <option key={currencies} value={currencies}>
@@ -40,8 +40,8 @@ export default function Currency(props) {
             </select>
             <br/>
             <div className="icon"> <FontAwesomeIcon icon={faExchangeAlt}> </FontAwesomeIcon> </div>
-            <input type="number" className="input" value={amount}  />
-            <select value={selectedCurrency} onChange={onChangeCurrency} >
+            <input type="number" className="inp1" value={amount}  />
+            <select className="sel1" value={selectedCurrency} onChange={onChangeCurrency} >
                 {
                currencyOptions.map(currencies => (
                             <option key={currencies} value={currencies}>
